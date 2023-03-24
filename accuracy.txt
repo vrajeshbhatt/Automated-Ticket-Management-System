@@ -1,0 +1,7 @@
+Epoch 50/50
+10400/10400 [==============================] - 15s 1ms/step - loss: 0.3548 - category_loss: 0.1281 - priority_loss: 0.2267 - category_accuracy: 0.9525 - priority_accuracy: 0.8862 - val_loss: 2.2296 - val_category_loss: 1.0585 - val_priority_loss: 1.1711 - val_category_accuracy: 0.8338 - val_priority_accuracy: 0.7346
+------------------------------------------------------------------------------
+Assign
+
+Epoch 50/50
+10400/10400 [==============================] - 15s 1ms/step - loss: 1.0819 - accuracy: 0.6577 - val_loss: 2.9107 - val_accuracy: 0.3846

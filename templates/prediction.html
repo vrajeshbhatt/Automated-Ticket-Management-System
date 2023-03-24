@@ -1,0 +1,586 @@
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--    <meta http-equiv='cache-control' content='no-cache'>-->
+    <!--    <meta http-equiv='expires' content='0'>-->
+    <!--    <meta http-equiv='pragma' content='no-cache'>-->
+    <title>Prediction</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/select2-bootstrap.css')}}">
+<!--    <link href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css" rel="stylesheet" />-->
+    <meta charset="UTF-8">
+    <style>
+        @charset "UTF-8";
+        @import url(https://fonts.googleapis.com/css?family=Oswald|Roboto);
+        body {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Roboto", sans-serif;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        
+        .table {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .table-cell {
+            display: table-cell;
+            vertical-align: middle;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container {
+            position: relative;
+            width: 850px;
+            margin: 30px auto 0;
+            height: 320px;
+            background-color: #5356ad;
+            top: 50%;
+            margin-top: -160px;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .box {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .container .box:before,
+        .container .box:after {
+            content: " ";
+            position: absolute;
+            left: 152px;
+            top: 50px;
+            background-color: #5356ad;
+            transform: rotateX(52deg) rotateY(15deg) rotateZ(-38deg);
+            width: 300px;
+            height: 285px;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .box:after {
+            background-color: #5356ad;
+            top: -10px;
+            left: 80px;
+            width: 320px;
+            height: 180px;
+        }
+        
+        .container .container-forms {
+            position: relative;
+        }
+        
+        .container .btn2,
+        .container .btn {
+            cursor: pointer;
+            text-align: center;
+            margin: 0 auto;
+            padding: 15px 32px;
+            border-radius: 8px;
+            width: 90px;
+            color: #fff;
+            background-color: #5356ad;
+            opacity: 1;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .btn2:hover,
+        .container .btn:hover {
+            opacity: 0.7;
+        }
+        
+        .container .btn2,
+        .container .btn,
+        .container input {
+            padding: 10px 15px;
+        }
+        
+        .container input {
+            margin: 0 auto 15px;
+            display: block;
+            width: 220px;
+            -moz-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+
+        .container select {
+            margin: 0 auto 15px;
+            display: block;
+            width: 220px;
+            -moz-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        
+        .container .container-forms .container-info {
+            text-align: left;
+            font-size: 0;
+        }
+        
+        .container .container-forms .container-info .info-item {
+            text-align: center;
+            font-size: 16px;
+            width: 300px;
+            height: 320px;
+            display: inline-block;
+            vertical-align: top;
+            color: #fff;
+            opacity: 1;
+            -moz-transition: all 0.3s;
+            -o-transition: all 0.3s;
+            -webkit-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        
+        .container .container-forms .container-info .info-item p {
+            font-size: 20px;
+            margin: 20px;
+        }
+        
+        .container .container-forms .container-info .info-item .btn2,
+        .container .container-forms .container-info .info-item .btn {
+            background-color: transparent;
+            border: 1px solid #fff;
+        }
+        
+        .container .container-forms .container-info .info-item .table-cell {
+            padding-right: 35px;
+        }
+        
+        .container .container-forms .container-info .info-item:nth-child(2) .table-cell {
+            padding-left: 35px;
+            padding-right: 0;
+        }
+        
+        .container .container-form {
+            overflow: hidden;
+            position: absolute;
+            left: 30px;
+            top: -30px;
+            width: 305px;
+            height: 380px;
+            background-color: #fff;
+            box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.2);
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .container-form:before {
+            content: "✔";
+            position: absolute;
+            left: 160px;
+            top: -50px;
+            color: #5356ad;
+            font-size: 130px;
+            opacity: 0;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .container-form .btn2,
+        .container .container-form .btn {
+            position: relative;
+            box-shadow: 0 0 10px 1px #5356ad;
+            margin-top: 30px;
+        }
+        
+        .container .form-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            -moz-transition: all 0.5s;
+            -o-transition: all 0.5s;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+        
+        .container .form-item.sign-up {
+            position: absolute;
+            left: -100%;
+            opacity: 0;
+        }
+        
+        .container.log-in .box:before {
+            position: absolute;
+            left: 180px;
+            top: 62px;
+            height: 265px;
+        }
+        
+        .container.log-in .box:after {
+            top: 22px;
+            left: 192px;
+            width: 324px;
+            height: 220px;
+        }
+        
+        .container.log-in .container-form {
+            left: 265px;
+        }
+        
+        .container.log-in .container-form .form-item.sign-up {
+            left: 0;
+            opacity: 1;
+        }
+        
+        .container.log-in .container-form .form-item.log-in {
+            left: -100%;
+            opacity: 0;
+        }
+        
+        .container.active {
+            width: 260px;
+            height: 140px;
+            margin-top: -70px;
+        }
+        
+        .container.active .container-form {
+            left: 30px;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .container.active .container-form:before {
+            content: "✔";
+            position: absolute;
+            left: 51px;
+            top: 5px;
+            color: #5356ad;
+            font-size: 130px;
+            opacity: 1;
+        }
+
+        .container.active input,
+        .container.active .btn2,
+        .container.active .btn,
+        .container.active .info-item {
+            display: none;
+            opacity: 0;
+            padding: 0px;
+            margin: 0 auto;
+            height: 0;
+        }
+        
+        .container.active .form-item {
+            height: 100%;
+        }
+        
+        .container.active .container-forms .container-info .info-item {
+            height: 0%;
+            opacity: 0;
+        }
+
+        .information{
+            display: None;
+            background: #fff;
+            border: 5px;
+            width: 299.04px;
+            color:#000000;
+            margin-left: 400px;
+            position:absolute;
+            top: 80px;
+            padding:25px;
+            border-radius: 3px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .select2-container--open .select2-selection {
+            box-shadow: none!important;
+        }
+
+        .select2-container--open .select2-selection .select2-selection__arrow {
+            z-index: 9999; /* example */
+        }
+
+    .select2-dropdown {
+      /* .box-shadow(@form-control-focus-box-shadow); */
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+
+
+      /* !important not needed with less */
+      border-top-width: 1px!important;
+      border-top-style: solid!important;
+
+
+      /* margin-top: -@input-height-base; */
+      margin-top: -41px!important;
+      margin-left: 42px;
+      width: 220px !important;
+    }
+
+    .select2-dropdown .select2-search {
+        padding: 0;
+    }
+
+    .select2-dropdown .select2-search .select2-search__field {
+      border-top: 0;
+      border-left: 0;
+      border-right: 0;
+      border-radius: 0;
+
+      /* padding: @padding-base-vertical @padding-base-horizontal; */
+      padding: 20px 12px;
+
+      /* height: calc(@input-height-base - 1px); */
+      height: 40.8px;
+    }
+
+
+
+    .select2-dropdown.select2-dropdown--above .select2-search .select2-search__field {
+      /* border-top: 1px solid @input-border; */
+      border-top: 1px solid #66afe9;
+      border-bottom: 0;
+    }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- <form action="{{ url_for('predict')}}"method="post">    -->
+    <!-- partial:index.partial.html -->
+    <div class="wrapper d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="custom-menu">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
+        </button>
+            </div>
+            <div class="p-4 pt-5">
+                <h2><a class="logo">TICKET SAMPLING</a></h2>
+                <ul class="list-unstyled components mb-5">
+                    <li class="active">
+                        <li class="active">
+                            <a href="/">Prediction</a>
+                        </li>   
+                    <li>
+                        <a href="/temp_retrain">Model Retrain</a>
+                    </li>
+                    <li>
+                        <a href="/retrain_data_preview">Data Preview</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content" class="p-4 p-md-5 pt-5">
+
+
+            <div class="container">
+                <div class="container-forms">
+                    <form action="/predict" method="post">
+                        <div class="container-form">
+                            <div class="form-item log-in">
+                                <div class="table">
+                                    <div class="table-cell">
+<!--                                        <input name="project" list="sw_name" id="inputProject" placeholder="Enter Project Name" type="text" onclick="projectinfo()" required/>-->
+
+                                                <select class="form-control project" id="select2-single-box inputProject" name="select2-single-box project" data-placeholder="Enter Project Name" onchange="projectinfo()" required>
+
+                                                    <option></option>
+                                                        {% for elem in original_project %}
+                                                            <option value= {{elem.replace(' ','')}}> {{elem}} </option>
+
+                                                        {% endfor %}
+                                                </select>
+
+
+                                        <input name="desc" id="inputDesc" placeholder="Enter Description" type="text" onclick="descinfo()" required/>
+                                        <center><button type="submit" name="submit" style="border:0;" class="btn"> Predict </button></center>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                    <div class="form-item sign-up">
+                        <div class="table">
+                            <div class="table-cell">
+                                <center>
+                                    <h4>Your Input</h4>
+                                    <p> Project: {{project}}</p>
+                                    <p> Description: {{text}}</p>
+
+                                    <h4>Prediction</h4>
+                                    <p> Category: {{category}}</p>
+                                    <p> Priority: {{priority}}</p>
+                                    <p> Assign to : {{assign}}</p>
+                                </center>
+                                <!-- <input name="Password" placeholder="Password" type="Password" /> -->
+                                <div class="btn2" style="width:110px;">
+                                    New Prediction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+                <div class="information"><p id="info"></p></div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.full.min.js"></script>
+    <script>
+            $(".project").select2({
+                placeholder: "Enter Project Name"
+            });
+
+            var elements = $(document).find('select.form-control');
+for (var i = 0, l = elements.length; i < l; i++) {
+  var $select = $(elements[i]), $label = $select.parents('.form-group').find('label');
+
+  $select.select2({
+    allowClear: false,
+    placeholder: $select.data('placeholder'),
+    minimumResultsForSearch: 0,
+    theme: 'bootstrap',
+		width: '100%' // https://github.com/select2/select2/issues/3278
+  });
+
+
+    $('.project').on('select2:open', function (e) {
+        document.getElementById("info").innerHTML = "Select Project Name of GatiSoftTech<br>i.e., SJE Plus, <br> Unique Plus";
+        document.getElementsByClassName("information")[0].style.display = "block";
+});
+
+
+  // Trigger focus
+  $label.on('click', function (e) {
+    $(this).parents('.form-group').find('select').trigger('focus').select2('focus');
+  });
+
+
+  // Trigger search
+  $select.on('keydown', function (e) {
+    var $select = $(this), $select2 = $select.data('select2'), $container = $select2.$container;
+
+
+    // Unprintable keys
+    if (typeof e.which === 'undefined' || $.inArray(e.which, [0, 8, 9, 12, 16, 17, 18, 19, 20, 27, 33, 34, 35, 36, 37, 38, 39, 44, 45, 46, 91, 92, 93, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 123, 124, 144, 145, 224, 225, 57392, 63289]) >= 0) {
+      return true;
+    }
+
+    // Opened dropdown
+    if ($container.hasClass('select2-container--open')) {
+      return true;
+    }
+
+    $select.select2('open');
+
+    // Default search value
+    var $search = $select2.dropdown.$search || $select2.selection.$search, query = $.inArray(e.which, [13, 40, 108]) < 0 ? String.fromCharCode(e.which) : '';
+    if (query !== '') {
+      $search.val(query).trigger('keyup');
+    }
+  });
+
+  // Format, placeholder
+<!--  $select.on('select2:open', function (e) {-->
+<!--		var $select = $(this), $select2 = $select.data('select2'), $dropdown = $select2.dropdown.$dropdown || $select2.selection.$dropdown, $search = $select2.dropdown.$search || $select2.selection.$search, data = $select.select2('data');-->
+
+<!--    // Above dropdown-->
+<!--    if ($dropdown.hasClass('select2-dropdown&#45;&#45;above')) {-->
+<!--      $dropdown.append($search.parents('.select2-search&#45;&#45;dropdown').detach());-->
+<!--    }-->
+
+<!--    // Placeholder-->
+<!--    $search.attr('placeholder', (data[0].text !== '' ? data[0].text : $select.data('placeholder')));-->
+<!--  });-->
+}
+    </script>
+    <script src="{{url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/popper.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/main.js')}}"></script>
+
+    <script>
+<!--        document.getElementsByClassName("select2-search__field")[0].onclick = function() { projectinfo()};-->
+        function projectinfo() {
+        document.getElementById("info").innerHTML = "Select Project Name of GatiSoftTech<br>i.e., SJE Plus, <br> Unique Plus";
+        document.getElementsByClassName("information")[0].style.display = "block";
+
+        }
+        function descinfo() {
+        document.getElementById("info").innerHTML = "Enter Description of Issue!!<br>i.e., GST Bill Issue, <br>Generate Sale Report";
+        document.getElementsByClassName("information")[0].style.display = "block";
+        }
+    </script>
+
+    <!-- <a class="box-item" href="https://codepen.io/Anna_Batura/" target="_blank"><svg class="rabbit" version="1.2" viewBox="0 0 600 600"><path d="m 335.94313,30.576451 c -9.79312,-0.146115 -17.39091,4.439466 -17.39091,13.789758 0,11.508038 -2.91019,60.415461 1.40532,76.238951 4.31553,15.82355 21.58583,38.97215 34.51834,54.67597 10.06946,12.22726 4.34772,41.69626 4.34772,56.0813 0,14.38499 -2.89751,25.9107 -8.65153,25.9107 -5.75402,0 -14.35971,5.75217 -20.11373,11.50612 -5.75395,5.75402 -11.51588,12.95631 -18.70841,7.20229 -7.19251,-5.75402 -20.15388,-11.49441 -43.16987,-15.80992 -23.01609,-4.31551 -61.84129,-0.0234 -86.29583,8.60763 -24.45458,8.63104 -76.25857,56.11061 -90.643535,77.6882 -14.385056,21.5775 -15.799189,87.73247 -14.36068,97.80193 1.438509,10.06953 -2.908267,17.28255 -10.100778,8.65153 -7.192459,-8.63104 -12.911438,-4.30381 -12.911438,-4.30381 0,0 -7.202292,14.37045 -7.202292,21.56298 0,7.19244 2.854564,14.36068 2.854564,14.36068 0,0 -11.506099,8.65056 -11.506099,14.40458 0,5.75397 11.515881,15.83044 18.708391,24.46146 7.192546,8.63097 31.651182,25.89997 41.720624,24.46148 10.069543,-1.43851 28.775063,-0.0121 35.967573,4.3038 7.19253,4.31551 24.44687,10.06761 46.02443,11.5061 21.57752,1.43851 81.97845,5.75307 97.80193,5.75307 15.82357,0 20.1675,-2.86435 27.35996,-10.05688 7.19253,-7.19245 -5.78527,-15.84115 -10.10079,-25.9107 -4.31551,-10.06946 14.40363,-7.16912 20.15765,-8.60763 5.75402,-1.43849 21.59424,-11.5061 31.66376,-11.5061 10.06953,0 8.6165,10.05589 21.56298,15.80993 12.94654,5.75393 31.63939,24.43902 46.02443,27.31602 14.38497,2.87695 47.47173,0.0121 58.97979,-4.30381 11.50797,-4.31551 10.06946,-14.37044 0,-21.56297 -10.06955,-7.19244 -34.50663,-20.16742 -38.82214,-27.35994 -4.31551,-7.19246 -5.74329,-15.81969 1.44924,-23.01224 7.19251,-7.19252 14.35876,-4.30292 25.86678,-10.05685 11.50806,-5.75402 15.80992,-23.04354 15.80992,-33.11301 0,-10.06953 1.36928,-21.01352 5.75307,-27.31602 3.67345,-5.28128 5.10015,-22.13212 5.30499,-33.64009 0.21874,-12.28864 -5.29329,-15.24871 -9.60881,-22.44122 -4.31543,-7.19246 4.30285,-17.25917 10.05687,-17.25917 5.75402,0 31.65108,-4.33602 41.72062,-8.65153 10.06946,-4.31546 20.16744,-23.03273 27.35995,-31.66377 7.19246,-8.63095 1.41799,-27.31512 -8.65154,-33.06907 -10.06954,-5.75402 -10.07746,-21.59431 -18.70841,-31.66377 -8.63103,-10.06953 -18.68507,-31.62961 -27.31604,-38.82213 -8.63101,-7.19253 -28.77502,-12.95535 -35.96755,-12.95535 -7.19253,0 -11.50612,9e-4 -11.50612,-5.75306 0,-5.75402 -1.44924,-12.9203 -1.44924,-25.86678 0,-12.94655 -16.24344,-68.464566 -37.3729,-102.149659 -4.40799,-7.027282 -11.5581,-5.405316 -20.15765,-2.898485 -5.69412,1.659863 -8.60761,4.35564 -8.60761,23.056136 0,18.700566 -11.50515,-0.03133 -17.25917,-10.100794 -5.75403,-10.069512 -15.86265,-21.58444 -28.80918,-24.461458 -2.42749,-0.539415 -4.76669,-0.800692 -7.02665,-0.834399 z" id="rabbit"></path></svg></a> -->
+    <!-- partial -->
+
+    <script>
+        var count = {{count}}
+        if (count == 1) {
+            $(".container").toggleClass("log-in");
+        }
+        $(".container-form .btn2").click(function() {
+            $(".container").toggleClass("log-in");
+        });
+    </script>
+<script>
+        if ( window.history.replaceState ) {
+
+          window.history.replaceState( null, null,"{{ url_for('home') }}");
+        }
+        </script>
+
+</body>
+
+</html>
